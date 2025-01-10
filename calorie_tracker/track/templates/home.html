@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-500 h-full flex items-center justify-center">
+
+    <div class="max-w-2xl w-full p-8 bg-white rounded-lg">
+        <h1 class="text-3xl font-semibold text-center text-blue-800 mb-8">Calorie Count App</h1>
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            <div>
+                <label for="name" class="text-xl font-semibold text-gray-800 mb-4">Food Name:</label>
+                <input type="text" name="name" id="name" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
+            </div>
+            <div>
+                <label for="calories" class="text-xl font-semibold text-gray-800 mb-4">Calories number:</label>
+                <input type="number" name="calories" id="calories" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
+            </div>
+            <button type="submit"
+                class="w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200">
+                Add Entry
+            </button>
+        </form>
+        <div class="mt-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Food Entries</h2>
+            <ul class="space-y-4">
+                {% for entry in entries %}
+                <li class="flex justify-between items-center text-lg text-gray-700">
+                    <span>{{ entry.name }}</span>
+                    <span class="text-blue-600">{{ entry.calories }} calorey</span>
+                </li>
+                {% empty %}
+                <li class="text-center text-gray-500">No entries yet.</li>
+                {% endfor %}
+            </ul>
+            <div class="mt-4 text-right text-lg font-semibold text-gray-800">
+                <strong>Total amount:</strong> {{ total_calories }} calories
+            </div>
+        </div>
+    </div>
+</body>
+</html>
